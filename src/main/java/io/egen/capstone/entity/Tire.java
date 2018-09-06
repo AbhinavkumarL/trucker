@@ -1,5 +1,7 @@
 package io.egen.capstone.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -7,61 +9,80 @@ import java.util.UUID;
 public class Tire {
 
     @Id
-    @Column(columnDefinition = "VARCHAR(36)")
-    private String tireId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer tireId;
 
-    private int frontLeft;
-    private int frontRight;
-    private int rearLeft;
-    private int rearRight;
+    private Integer frontLeft;
+    private Integer frontRight;
+    private Integer rearLeft;
+    private Integer rearRight;
 
+    @OneToOne(mappedBy = "tire")
+    @JsonIgnore
+    private Reading reading;
 
-    public Tire(){ this.tireId = UUID.randomUUID().toString(); }
+    public Tire() {
 
-    public String getTireId() {
+    }
+
+    public Tire(Integer frontLeft, Integer frontRight, Integer rearLeft, Integer rearRight) {
+        this.frontLeft = frontLeft;
+        this.frontRight = frontRight;
+        this.rearLeft = rearLeft;
+        this.rearRight = rearRight;
+    }
+
+    public Integer getTireId() {
         return tireId;
     }
 
-    public void setTireId(String tireId) {
+    public void setTireId(Integer tireId) {
         this.tireId = tireId;
     }
 
-    public int getFrontLeft() {
+    public Integer getFrontLeft() {
         return frontLeft;
     }
 
-    public void setFrontLeft(int frontLeft) {
+    public void setFrontLeft(Integer frontLeft) {
         this.frontLeft = frontLeft;
     }
 
-    public int getFrontRight() {
+    public Integer getFrontRight() {
         return frontRight;
     }
 
-    public void setFrontRight(int frontRight) {
+    public void setFrontRight(Integer frontRight) {
         this.frontRight = frontRight;
     }
 
-    public int getRearLeft() {
+    public Integer getRearLeft() {
         return rearLeft;
     }
 
-    public void setRearLeft(int rearLeft) {
+    public void setRearLeft(Integer rearLeft) {
         this.rearLeft = rearLeft;
     }
 
-    public int getRearRight() {
+    public Integer getRearRight() {
         return rearRight;
     }
 
-    public void setRearRight(int rearRight) {
+    public void setRearRight(Integer rearRight) {
         this.rearRight = rearRight;
+    }
+
+    public Reading getReading() {
+        return reading;
+    }
+
+    public void setReading(Reading reading) {
+        this.reading = reading;
     }
 
     @Override
     public String toString() {
         return "Tire{" +
-                "tireId='" + tireId + '\'' +
                 ", frontLeft=" + frontLeft +
                 ", frontRight=" + frontRight +
                 ", rearLeft=" + rearLeft +

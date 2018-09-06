@@ -1,6 +1,7 @@
 package io.egen.capstone.controller;
 
 import io.egen.capstone.entity.Reading;
+import io.egen.capstone.entity.ReadingRawData;
 import io.egen.capstone.service.ReadingServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,8 +27,7 @@ public class ReadingController {
             @ApiResponse(code=200, message = "Data Inserted"),
             @ApiResponse(code=500, message = "Internal Server Error")
     })
-    public Reading vehicleReadings(@RequestBody Reading reading){
-        return readingService.create(reading);
+    public Reading vehicleReadings(@RequestBody ReadingRawData readingRawData){
+        return readingService.create(readingRawData);
     }
-
 }

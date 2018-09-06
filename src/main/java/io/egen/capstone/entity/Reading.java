@@ -1,28 +1,60 @@
 package io.egen.capstone.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Reading {
+public class Reading implements Serializable {
 
     @Id
-    private String vin;
-    private double latitude;
-    private double longitude;
-    private String timestamp;
-    private float fuelVolume;
-    private int speed;
-    private int engineHp;
-    private boolean checkEngineLightOn;
-    private boolean engineCoolantLow;
-    private boolean cruiseControlOn;
-    private int engineRpm;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer readingId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Tire tires;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "vin")
+//    private Vehicle vehicle;
+    private String vin;
+    private Float fuelVolume;
+    private Integer speed;
+    private Integer engineHp;
+    private Boolean checkEngineLightOn;
+    private Boolean engineCoolantLow;
+    private Boolean cruiseControlOn;
+    private Integer engineRpm;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "tireId")
+    private Tire tire;
+
+//
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "locationId")
+//    private Location location;
+
+
+    public Reading() {
+    }
+
+    public Reading(String vin, Float fuelVolume, Integer speed, Integer engineHp, Boolean checkEngineLightOn,
+                   Boolean engineCoolantLow, Boolean cruiseControlOn, Integer engineRpm) {
+
+        this.vin = vin;
+        this.fuelVolume = fuelVolume;
+        this.speed = speed;
+        this.engineHp = engineHp;
+        this.checkEngineLightOn = checkEngineLightOn;
+        this.engineCoolantLow = engineCoolantLow;
+        this.cruiseControlOn = cruiseControlOn;
+        this.engineRpm = engineRpm;
+    }
+
+    public Integer getReadingId() {
+        return readingId;
+    }
+
+    public void setReadingId(Integer readingId) {
+        this.readingId = readingId;
+    }
 
     public String getVin() {
         return vin;
@@ -32,91 +64,100 @@ public class Reading {
         this.vin = vin;
     }
 
-    public double getLatitude() {
-        return latitude;
-    }
+    //    public Vehicle getVehicle() {
+//        return vehicle;
+//    }
+//
+//    public void setVehicle(Vehicle vehicle) {
+//        this.vehicle = vehicle;
+//    }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public float getFuelVolume() {
+    public Float getFuelVolume() {
         return fuelVolume;
     }
 
-    public void setFuelVolume(float fuelVolume) {
+    public void setFuelVolume(Float fuelVolume) {
         this.fuelVolume = fuelVolume;
     }
 
-    public int getSpeed() {
+    public Integer getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(Integer speed) {
         this.speed = speed;
     }
 
-    public int getEngineHp() {
+    public Integer getEngineHp() {
         return engineHp;
     }
 
-    public void setEngineHp(int engineHp) {
+    public void setEngineHp(Integer engineHp) {
         this.engineHp = engineHp;
     }
 
-    public boolean isCheckEngineLightOn() {
+    public Boolean getCheckEngineLightOn() {
         return checkEngineLightOn;
     }
 
-    public void setCheckEngineLightOn(boolean checkEngineLightOn) {
+    public void setCheckEngineLightOn(Boolean checkEngineLightOn) {
         this.checkEngineLightOn = checkEngineLightOn;
     }
 
-    public boolean isEngineCoolantLow() {
+    public Boolean getEngineCoolantLow() {
         return engineCoolantLow;
     }
 
-    public void setEngineCoolantLow(boolean engineCoolantLow) {
+    public void setEngineCoolantLow(Boolean engineCoolantLow) {
         this.engineCoolantLow = engineCoolantLow;
     }
 
-    public boolean isCruiseControlOn() {
+    public Boolean getCruiseControlOn() {
         return cruiseControlOn;
     }
 
-    public void setCruiseControlOn(boolean cruiseControlOn) {
+    public void setCruiseControlOn(Boolean cruiseControlOn) {
         this.cruiseControlOn = cruiseControlOn;
     }
 
-    public int getEngineRpm() {
+    public Integer getEngineRpm() {
         return engineRpm;
     }
 
-    public void setEngineRpm(int engineRpm) {
+    public void setEngineRpm(Integer engineRpm) {
         this.engineRpm = engineRpm;
     }
 
-    public Tire getTires() {
-        return tires;
+    public Tire getTire() {
+        return tire;
     }
 
-    public void setTires(Tire tires) {
-        this.tires = tires;
+    public void setTire(Tire tire) {
+        this.tire = tire;
     }
+
+//    public Location getLocation() {
+//        return location;
+//    }
+//
+//    public void setLocation(Location location) {
+//        this.location = location;
+//    }
+
+//    @Override
+//    public String toString() {
+//        return "Reading{" +
+//                "readingId=" + readingId +
+//                ", vin='" + vin + '\'' +
+//                ", fuelVolume=" + fuelVolume +
+//                ", speed=" + speed +
+//                ", engineHp=" + engineHp +
+//                ", checkEngineLightOn=" + checkEngineLightOn +
+//                ", engineCoolantLow=" + engineCoolantLow +
+//                ", cruiseControlOn=" + cruiseControlOn +
+//                ", engineRpm=" + engineRpm +
+//                ", tire=" + tire +
+////                ", location=" + location +
+//                '}';
+//    }
 }

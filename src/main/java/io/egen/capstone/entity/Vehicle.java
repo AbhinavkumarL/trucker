@@ -2,6 +2,7 @@ package io.egen.capstone.entity;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Vehicle {
@@ -16,10 +17,11 @@ public class Vehicle {
     private int maxFuelVolume;
     private String lastServiceDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="alertId")
-    private Alert alert;
+//    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private Set<Reading> reading;
 
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Alert> alert;
 
     public String getVin() {
         return vin;
@@ -77,6 +79,22 @@ public class Vehicle {
         this.lastServiceDate = lastServiceDate;
     }
 
+//    public Set<Reading> getReading() {
+////        return reading;
+////    }
+////
+////    public void setReading(Set<Reading> reading) {
+////        this.reading = reading;
+////    }
+
+    public Set<Alert> getAlert() {
+        return alert;
+    }
+
+    public void setAlert(Set<Alert> alert) {
+        this.alert = alert;
+    }
+
     @Override
     public String toString() {
         return "Vehicle{" +
@@ -86,7 +104,9 @@ public class Vehicle {
                 ", year=" + year +
                 ", redlineRpm=" + redlineRpm +
                 ", maxFuelVolume=" + maxFuelVolume +
-                ", lastServiceDate=" + lastServiceDate +
+                ", lastServiceDate='" + lastServiceDate + '\'' +
+//                ", reading=" + reading +
+                ", alert=" + alert +
                 '}';
     }
 }

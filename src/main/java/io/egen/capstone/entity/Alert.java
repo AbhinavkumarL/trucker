@@ -7,19 +7,29 @@ import javax.persistence.*;
 public class Alert {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int alertId;
-
+    private Integer alertId;
     private String priority;
+    private String category;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "VehicleVin")
-    private Vehicle VehicleVin;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "vin")
+    private Vehicle vehicle;
 
-    public int getAlertId() {
+    public Alert() {
+
+    }
+
+    public Alert(String priority, String category, Vehicle vehicle){
+        this.priority = priority;
+        this.category = category;
+        this.vehicle = vehicle;
+    }
+
+    public Integer getAlertId() {
         return alertId;
     }
 
-    public void setAlertId(int alertId) {
+    public void setAlertId(Integer alertId) {
         this.alertId = alertId;
     }
 
@@ -31,12 +41,20 @@ public class Alert {
         this.priority = priority;
     }
 
-    public Vehicle getVehicleVin() {
-        return VehicleVin;
+    public String getCategory() {
+        return category;
     }
 
-    public void setVehicleVin(Vehicle vehicleVin) {
-        VehicleVin = vehicleVin;
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     @Override
@@ -44,7 +62,7 @@ public class Alert {
         return "Alert{" +
                 "alertId=" + alertId +
                 ", priority='" + priority + '\'' +
-                ", VehicleVin=" + VehicleVin +
+                ", vehicle=" + vehicle +
                 '}';
     }
 }

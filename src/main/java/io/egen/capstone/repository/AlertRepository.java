@@ -1,9 +1,9 @@
 package io.egen.capstone.repository;
 
-import io.egen.capstone.entity.Reading;
+import io.egen.capstone.entity.Alert;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ReadingsRepository extends CrudRepository<Reading, Integer> {
+public interface AlertRepository extends CrudRepository<Alert, Integer> {
 }
