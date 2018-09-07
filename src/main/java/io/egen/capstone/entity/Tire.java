@@ -3,7 +3,7 @@ package io.egen.capstone.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.UUID;
+import java.util.Date;
 
 @Entity
 public class Tire {
@@ -21,8 +21,15 @@ public class Tire {
     @JsonIgnore
     private Reading reading;
 
-    public Tire() {
+    @Column(name="createdAt",
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date createdAt = new Date();
 
+    @Column(name="updatedAt",
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private Date updatedAt = new Date();
+
+    public Tire() {
     }
 
     public Tire(Integer frontLeft, Integer frontRight, Integer rearLeft, Integer rearRight) {
@@ -80,13 +87,33 @@ public class Tire {
         this.reading = reading;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public String toString() {
         return "Tire{" +
+                "tireId=" + tireId +
                 ", frontLeft=" + frontLeft +
                 ", frontRight=" + frontRight +
                 ", rearLeft=" + rearLeft +
                 ", rearRight=" + rearRight +
+                ", reading=" + reading +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

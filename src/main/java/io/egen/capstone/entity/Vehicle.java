@@ -2,6 +2,8 @@ package io.egen.capstone.entity;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -10,6 +12,7 @@ public class Vehicle {
     @Id
     @Column(columnDefinition = "VARCHAR(20)")
     private String vin;
+
     private String make;
     private String model;
     private int year;
@@ -17,8 +20,13 @@ public class Vehicle {
     private int maxFuelVolume;
     private String lastServiceDate;
 
-//    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private Set<Reading> reading;
+    @Column(name="createdAt",
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date createdAt = new Date();
+
+    @Column(name="updatedAt",
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private Date updatedAt = new Date();
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Alert> alert;
@@ -79,13 +87,21 @@ public class Vehicle {
         this.lastServiceDate = lastServiceDate;
     }
 
-//    public Set<Reading> getReading() {
-////        return reading;
-////    }
-////
-////    public void setReading(Set<Reading> reading) {
-////        this.reading = reading;
-////    }
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
     public Set<Alert> getAlert() {
         return alert;
@@ -105,7 +121,8 @@ public class Vehicle {
                 ", redlineRpm=" + redlineRpm +
                 ", maxFuelVolume=" + maxFuelVolume +
                 ", lastServiceDate='" + lastServiceDate + '\'' +
-//                ", reading=" + reading +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 ", alert=" + alert +
                 '}';
     }

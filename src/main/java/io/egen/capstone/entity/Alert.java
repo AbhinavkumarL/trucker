@@ -1,7 +1,11 @@
 package io.egen.capstone.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.annotation.Generated;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 public class Alert {
@@ -13,10 +17,18 @@ public class Alert {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vin")
+    @JsonIgnore
     private Vehicle vehicle;
 
-    public Alert() {
+    @Column(name="createdAt",
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date createdAt = new Date();
 
+    @Column(name="updatedAt",
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private Date updatedAt = new Date();
+
+    public Alert() {
     }
 
     public Alert(String priority, String category, Vehicle vehicle){
@@ -57,12 +69,31 @@ public class Alert {
         this.vehicle = vehicle;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public String toString() {
         return "Alert{" +
                 "alertId=" + alertId +
                 ", priority='" + priority + '\'' +
+                ", category='" + category + '\'' +
                 ", vehicle=" + vehicle +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

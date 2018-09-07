@@ -10,4 +10,5 @@ public interface VehicleService {
     Vehicle create(Vehicle vehicle);
     Vehicle update(String vin, Vehicle vehicle);
     void insertListVehicles(List<Vehicle> vehicleList);
+    List<Vehicle> findHighAlertVehicles();
 }

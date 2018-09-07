@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -38,5 +39,14 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public void insertListVehicles(List<Vehicle> vehicleList) {
         vehicleList.forEach( (v) -> create(v));
+    }
+
+    @Override
+    public List<Vehicle> findHighAlertVehicles(){
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.HOUR, -2);
+        Date twoHourBack = cal.getTime();
+        System.out.println("Two hours back time:"+ twoHourBack);
+        return repository.findHighAlertVehicles(twoHourBack);
     }
 }

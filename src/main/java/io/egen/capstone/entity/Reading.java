@@ -1,7 +1,9 @@
 package io.egen.capstone.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class Reading implements Serializable {
@@ -10,9 +12,6 @@ public class Reading implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer readingId;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "vin")
-//    private Vehicle vehicle;
     private String vin;
     private Float fuelVolume;
     private Integer speed;
@@ -26,18 +25,19 @@ public class Reading implements Serializable {
     @JoinColumn(name = "tireId")
     private Tire tire;
 
-//
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinColumn(name = "locationId")
-//    private Location location;
+    @Column(name="createdAt",
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date createdAt = new Date();
 
+    @Column(name="updatedAt",
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private Date updatedAt = new Date();
 
     public Reading() {
     }
 
     public Reading(String vin, Float fuelVolume, Integer speed, Integer engineHp, Boolean checkEngineLightOn,
                    Boolean engineCoolantLow, Boolean cruiseControlOn, Integer engineRpm) {
-
         this.vin = vin;
         this.fuelVolume = fuelVolume;
         this.speed = speed;
@@ -63,14 +63,6 @@ public class Reading implements Serializable {
     public void setVin(String vin) {
         this.vin = vin;
     }
-
-    //    public Vehicle getVehicle() {
-//        return vehicle;
-//    }
-//
-//    public void setVehicle(Vehicle vehicle) {
-//        this.vehicle = vehicle;
-//    }
 
     public Float getFuelVolume() {
         return fuelVolume;
@@ -136,28 +128,37 @@ public class Reading implements Serializable {
         this.tire = tire;
     }
 
-//    public Location getLocation() {
-//        return location;
-//    }
-//
-//    public void setLocation(Location location) {
-//        this.location = location;
-//    }
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-//    @Override
-//    public String toString() {
-//        return "Reading{" +
-//                "readingId=" + readingId +
-//                ", vin='" + vin + '\'' +
-//                ", fuelVolume=" + fuelVolume +
-//                ", speed=" + speed +
-//                ", engineHp=" + engineHp +
-//                ", checkEngineLightOn=" + checkEngineLightOn +
-//                ", engineCoolantLow=" + engineCoolantLow +
-//                ", cruiseControlOn=" + cruiseControlOn +
-//                ", engineRpm=" + engineRpm +
-//                ", tire=" + tire +
-////                ", location=" + location +
-//                '}';
-//    }
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Reading{" +
+                "readingId=" + readingId +
+                ", vin='" + vin + '\'' +
+                ", fuelVolume=" + fuelVolume +
+                ", speed=" + speed +
+                ", engineHp=" + engineHp +
+                ", checkEngineLightOn=" + checkEngineLightOn +
+                ", engineCoolantLow=" + engineCoolantLow +
+                ", cruiseControlOn=" + cruiseControlOn +
+                ", engineRpm=" + engineRpm +
+                ", tire=" + tire +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

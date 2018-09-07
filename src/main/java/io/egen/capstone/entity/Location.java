@@ -2,6 +2,8 @@ package io.egen.capstone.entity;
 
 import javax.annotation.Generated;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 public class Location {
@@ -14,8 +16,15 @@ public class Location {
     private Double longitude;
     private String timestamp;
 
-    public Location(){
+    @Column(name="createdAt",
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date createdAt = new Date();
 
+    @Column(name="updatedAt",
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private Date updatedAt = new Date();
+
+    public Location(){
     }
 
     public Location(String vin, Double latitude, Double longitude, String timestamp){
@@ -24,7 +33,6 @@ public class Location {
         this.longitude = longitude;
         this.timestamp = timestamp;
     }
-
 
     public Integer getLocationId() {
         return locationId;
@@ -66,6 +74,22 @@ public class Location {
         this.timestamp = timestamp;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public String toString() {
         return "Location{" +
@@ -74,6 +98,8 @@ public class Location {
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 ", timestamp='" + timestamp + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }
