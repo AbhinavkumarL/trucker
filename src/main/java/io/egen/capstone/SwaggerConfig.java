@@ -2,6 +2,7 @@ package io.egen.capstone;
 
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -10,6 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configurable
 @EnableSwagger2
+@Component
 public class SwaggerConfig {
 
     @Bean
